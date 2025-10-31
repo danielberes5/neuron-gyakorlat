@@ -18,7 +18,7 @@ public class SecuredFilter implements Filter {
         HttpSession httpSession = httpRequest.getSession();
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
         try {
-            if (httpSession.getAttribute("authenticated").equals("true")) {
+            if (httpSession.getAttribute("authenticated").equals(true)) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
 
