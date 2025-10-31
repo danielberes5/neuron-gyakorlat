@@ -12,8 +12,8 @@ public class LoginServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         if(request.getParameter("username").equals("admin") && request.getParameter("password").equals("password")){
-            session.setAttribute("authenticated","true");
-            response.sendRedirect(response.encodeRedirectURL("Secured/profile.html"));
+            session.setAttribute("authenticated",true);
+            response.sendRedirect(response.encodeRedirectURL("secured/profile.html"));
         }else {
             session.setAttribute("request","Incorrect username or password");
             response.sendRedirect("login.html");
