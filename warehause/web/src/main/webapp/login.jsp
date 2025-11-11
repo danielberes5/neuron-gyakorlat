@@ -1,0 +1,48 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bejelentkezés</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="login.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+</head>
+<body>
+
+<div class="login-box">
+    <div class="mb-4">
+        <h4 class="mt-2"><i class="bi bi-person-fill fs-1 text-primary"></i>User Login</h4>
+    </div>
+
+    <% if (request.getAttribute("loginError") != null) { %>
+        <div class="alert alert-danger text-center">
+            <%= request.getAttribute("loginError") %>
+        </div>
+    <% } %>
+
+    <form action="login-servlet" method="post">
+        <div class="input-group mb-3">
+            <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+            <input type="text" name="username" class="form-control" placeholder="User name" required>
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
+        </div>
+
+        <span class="flex-container">
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a href="#" class="forgot-link">forgot password</a>
+        </span>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
