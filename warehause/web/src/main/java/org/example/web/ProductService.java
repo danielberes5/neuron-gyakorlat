@@ -6,9 +6,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.example.config.DatabaseConfig;
 import org.example.model.Product;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,23 +23,33 @@ public class ProductService extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
+        List<Product> productList = new ArrayList<>();
 
-        Object productsObj = session.getAttribute("products");
+        try (Connection conn = DatabaseConfig.getConnection()) {
+            String sql = "SELECT name, category, quantityUnit, unit, purchasePrice, sellingPrice, description FROM product";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
 
-        if (productsObj == null) {
-            List<Product> productList = new ArrayList<>();
+            while (rs.next()) {
+                productList.add(new Product(
+                        rs.getString("name"),
+                        rs.getString("category"),
+                        rs.getString("quantityUnit"),
+                        rs.getString("unit"),
+                        rs.getDouble("purchasePrice"),
+                        rs.getDouble("sellingPrice"),
+                        rs.getString("description")
+                ));
+            }
 
-            productList.add(new Product("Alma", "Gyümölcs", "1", "kg", 200, 350, "Friss alma"));
-            productList.add(new Product("Tej", "Ital", "1", "liter", 150, 250, "Friss tej"));
-            productList.add(new Product("Kenyer", "Péksütemény", "1", "db", 100, 200, "Friss kenyér"));
-
-            session.setAttribute("products", productList);
-            productsObj = productList;
+        } catch (Exception e) {
+            response.setStatus(500);
+            response.getWriter().write("DB hiba: " + e.getMessage());
+            return;
         }
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(gson.toJson(productsObj));
+        response.getWriter().write(gson.toJson(productList));
     }
 }
