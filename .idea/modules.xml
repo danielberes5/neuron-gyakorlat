@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/warehause/warehouse-client-api/warehouse-client-api.iml" filepath="$PROJECT_DIR$/warehause/warehouse-client-api/warehouse-client-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/warehause/web/web.iml" filepath="$PROJECT_DIR$/warehause/web/web.iml" />
     </modules>
   </component>
