@@ -43,6 +43,7 @@ public class ProductDAO extends GenericDAO<Product> {
             return q.getResultList();
 
         }
+
     }
 
 

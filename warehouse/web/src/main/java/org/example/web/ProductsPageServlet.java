@@ -19,6 +19,7 @@ public class ProductsPageServlet extends HttpServlet {
             throws ServletException, IOException {
 
         List<Unit> units = unitDAO.findAll();
+
         req.setAttribute("units", units);
 
         req.getRequestDispatcher("/products.jsp").forward(req, resp);
