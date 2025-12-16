@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:hsqldb:file:./db/warehouseDB;shutdown=true
+    username: SA
+    password:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+
+  jpa:
+    hibernate:
+      ddl-auto: none

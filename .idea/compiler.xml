@@ -6,8 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="web" />
         <module name="warehouse-client-api" />
+        <module name="warehouse-api" />
+        <module name="web" />
+        <module name="warehouse-core" />
       </profile>
     </annotationProcessing>
   </component>
