@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/warehause/warehouse-client-api/pom.xml" />
         <option value="$PROJECT_DIR$/warehouse/web/pom.xml" />
         <option value="$PROJECT_DIR$/warehouse/pom.xml" />
+        <option value="$PROJECT_DIR$/security-backend/pom.xml" />
       </list>
     </option>
   </component>
