@@ -6,9 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="web" />
         <module name="warehouse-client-api" />
+        <module name="security-core" />
+        <module name="web" />
+        <module name="security-api" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="warehouse-api" target="1.8" />
+      <module name="warehouse-backend" target="1.5" />
+      <module name="warehouse-core" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
