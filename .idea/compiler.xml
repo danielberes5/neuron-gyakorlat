@@ -8,13 +8,15 @@
         <outputRelativeToContentRoot value="true" />
         <module name="warehouse-client-api" />
         <module name="security-core" />
+        <module name="order-core" />
         <module name="web" />
         <module name="security-api" />
+        <module name="order-api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="warehouse" target="21" />
       <module name="warehouse-api" target="1.8" />
-      <module name="warehouse-backend" target="1.5" />
       <module name="warehouse-core" target="1.8" />
     </bytecodeTargetLevel>
   </component>

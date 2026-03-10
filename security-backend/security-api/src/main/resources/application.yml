@@ -1,10 +1,31 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:hsqldb:file:./db/warehouseDB;shutdown=true
+    username: SA
+    password:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+  cloud:
+    gateway:
+      default-filters:
+        - AddRequestHeader=X-Gateway,SecurityBackend
+  security:
+    jwt:
+      secret: mySuperSecretKeyForJWTGeneration
+      access-token-exp-ms: 900000       # 15 perc
+      refresh-token-exp-ms: 10800000    # 3 óra
 
+logging:
+  config: classpath:log4j2-spring.xml
 
-jwt:
-  secret: very-secret-key-which-is-long-enough
+server:
+  port: 8080
