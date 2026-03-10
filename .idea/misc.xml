@@ -10,7 +10,17 @@
         <option value="$PROJECT_DIR$/warehouse/web/pom.xml" />
         <option value="$PROJECT_DIR$/warehouse/pom.xml" />
         <option value="$PROJECT_DIR$/security-backend/pom.xml" />
+        <option value="$PROJECT_DIR$/warehouse-backend/pom.xml" />
+        <option value="$PROJECT_DIR$/warehouse-backend/security-api/pom.xml" />
+        <option value="$PROJECT_DIR$/warehouse-backend/security-core/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/warehouse-backend/security-api/pom.xml" />
+        <option value="$PROJECT_DIR$/warehouse-backend/security-core/pom.xml" />
+        <option value="$PROJECT_DIR$/warehouse-backend/warehouse/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" project-jdk-name="21" project-jdk-type="JavaSDK">
