@@ -1,108 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { getReceipts, createReceipt, updateReceipt, Receipt } from "../../api/receipts";
-import ReceiptModal from "../../../components/modals/ReceiptModal";
+import ApiClient from "../../../api/ApiClient";
+import type { Receipt, Product } from "./types";
+import ReceiptTable from "./ReceiptTable";
+import ReceiptModal from "./ReceiptModal";
 
 const ReceiptsPage: React.FC = () => {
   const [receipts, setReceipts] = useState<Receipt[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedReceipt, setSelectedReceipt] = useState<Receipt | undefined>();
+  const [editingReceipt, setEditingReceipt] = useState<Receipt | null>(null);
 
-  // lapozás
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
-  const totalPages = Math.ceil(receipts.length / itemsPerPage);
-
-  const fetchReceipts = async () => {
-    const data = await getReceipts();
-    setReceipts(data);
-  };
+  const fetchReceipts = async () => setReceipts((await ApiClient.get("/receipts")).data);
+  const fetchProducts = async () => setProducts((await ApiClient.get("/products")).data);
 
   useEffect(() => {
     fetchReceipts();
+    fetchProducts();
   }, []);
 
-  const handleAdd = () => {
-    setSelectedReceipt(undefined);
+  const openModal = (receipt?: Receipt) => {
+    setEditingReceipt(receipt || null);
     setModalOpen(true);
   };
-
-  const handleEdit = (receipt: Receipt) => {
-    setSelectedReceipt(receipt);
-    setModalOpen(true);
-  };
-
-  const handleSave = async (data: Partial<Receipt>) => {
-    if (selectedReceipt) {
-      await updateReceipt(selectedReceipt.id, data);
-    } else {
-      await createReceipt(data);
-    }
-    setModalOpen(false);
-    fetchReceipts();
-  };
-
-  // Lapozott lista
-  const displayedReceipts = receipts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   return (
     <div className="p-6">
-      <div className="flex justify-between mb-4">
-        <h1 className="text-2xl font-bold">Bevételezések</h1>
-        <button onClick={handleAdd} className="bg-green-600 text-white px-3 py-1 rounded">
-          Hozzáadás
-        </button>
-      </div>
+      <h2 className="text-2xl font-bold mb-4">Bevételezések</h2>
+      <button
+        className="bg-blue-600 text-white px-4 py-2 rounded mb-4"
+        onClick={() => openModal()}
+      >
+        Hozzáadás
+      </button>
 
-      <table className="w-full border-collapse border">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="border p-2">Sorszám</th>
-            <th className="border p-2">Időpont</th>
-            <th className="border p-2">Tételek száma</th>
-            <th className="border p-2">Művelet</th>
-          </tr>
-        </thead>
-        <tbody>
-          {displayedReceipts.map((r) => (
-            <tr key={r.id} className="hover:bg-gray-100">
-              <td className="border p-2">{r.receiptNumber}</td>
-              <td className="border p-2">{new Date(r.createdAt).toLocaleString()}</td>
-              <td className="border p-2">{r.items.length}</td>
-              <td className="border p-2">
-                <button
-                  onClick={() => handleEdit(r)}
-                  className="bg-blue-500 text-white px-2 py-1 rounded"
-                >
-                  Módosítás
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <ReceiptTable receipts={receipts} onEdit={openModal} />
 
-      {/* Lapozás */}
-      <div className="flex justify-center mt-4 gap-2">
-        <button onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} className="px-3 py-1 border rounded">
-          Előző
-        </button>
-        <span className="px-3 py-1">
-          {currentPage} / {totalPages}
-        </span>
-        <button
-          onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-          className="px-3 py-1 border rounded"
-        >
-          Következő
-        </button>
-      </div>
-
-      <ReceiptModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        onSave={handleSave}
-        receipt={selectedReceipt}
-      />
+      {modalOpen && (
+        <ReceiptModal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          receipt={editingReceipt}
+          products={products}
+          onSaved={fetchReceipts}
+        />
+      )}
     </div>
   );
 };

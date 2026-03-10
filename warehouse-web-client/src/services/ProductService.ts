@@ -1,4 +1,4 @@
-import ApiClient from "./ApiClient";
+import ApiClient from "../api/ApiClient";
 import type { IProduct } from "../interfaces/IProduct";
 import type { IProductsResponse } from "../interfaces/IProductsResponse";
 

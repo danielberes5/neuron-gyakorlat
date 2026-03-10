@@ -11,9 +11,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
-  jackson:
-    serialization:
-      write-dates-as-timestamps: false
   cloud:
     gateway:
       default-filters:
@@ -24,8 +21,7 @@ spring:
       access-token-exp-ms: 900000       # 15 perc
       refresh-token-exp-ms: 10800000    # 3 óra
 
-logging:
-  config: classpath:log4j2-spring.xml
+
 
 server:
-  port: 8080
+  port: 8081

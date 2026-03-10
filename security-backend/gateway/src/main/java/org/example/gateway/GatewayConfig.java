@@ -1,4 +1,4 @@
-package org.example.api.gateway;
+package org.example.gateway;
 
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
@@ -13,10 +13,10 @@ public class GatewayConfig {
         return builder.routes()
                 // auth végpontok maradnak itt, nem továbbítjuk
                 .route("auth", r -> r.path("/api/auth/**")
-                        .uri("http://localhost:8080")) // vagy helyi endpoint, ha a gateway kezeli
+                        .uri("http://localhost:8082")) // vagy helyi endpoint, ha a gateway kezeli
                 // users végpontok maradnak itt, nem továbbítjuk
                 .route("users", r -> r.path("/api/users/**")
-                        .uri("http://localhost:8080"))
+                        .uri("http://localhost:8082"))
                 // minden más kérést továbbítunk a warehouse-backend felé
                 .route("forward_all_others", r -> r.path("/**")
                         .uri("http://localhost:8081"))

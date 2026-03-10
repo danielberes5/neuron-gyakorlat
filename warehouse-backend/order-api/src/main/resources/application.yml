@@ -10,10 +10,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+      implicit_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+      physical_naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-  jackson:
-    serialization:
-      write-dates-as-timestamps: false

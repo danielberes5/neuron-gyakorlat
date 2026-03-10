@@ -1,4 +1,4 @@
-package org.example.api.gateway;
+package org.example.gateway;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;

@@ -1,4 +1,4 @@
-package org.example.api.gateway;
+package org.example.gateway;
 
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
